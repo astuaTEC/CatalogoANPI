@@ -84,13 +84,13 @@ vector<double> puntoFijo(string g, double x0, double tol, int iterMax){
 
 int main(){
 
-    double x0 = 1.5;
-    string g = "log(2*x + 1)";
-    double tol = 10e-9;
-    int iterMax = 100;
+    double x0 = 1.5; //se define el punto incial para el algoritmo
+    string g = "log(2*x + 1)"; //se define la función a encontrarle al menos un cero
+    double tol = 10e-9; //se define la tolerancia máxima
+    int iterMax = 100; //se definen las iteraciones máximas
 
-    vector<double> res = puntoFijo(g, x0, tol, iterMax);
+    vector<double> res = puntoFijo(g, x0, tol, iterMax); //se llama a la función y el resultado se guarda en una variable
     cout << "Aproximación:  " + to_string(res.at(0)) << endl;
-    cout << res.at(1) << endl;
+    cout << "Error:  " + to_string(res.at(1)) << endl;
     return 0;
 }

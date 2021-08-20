@@ -60,9 +60,9 @@ vector<double> falsa_posicion(string f_, double a, double b, double tol, int ite
     func = reader(f_); // se pasa de la función en texto a una función que se puede evaluar
     vector<double> er, iter, resultado; //er: vector de errores, iter: vector de iteraciones, resultado: vector para retornar el resultado
 
-    int k = 0;
-    double xk = a;
-    double xk_1 = b;
+    int k = 0; //se inicializa las iteración en cero
+    double xk = a; //se actualiza el valor de xk con el límite inferior
+    double xk_1 = b; //se actualiza el valor de xk_1 con el límite superior
     double error = 0; // se inicializa el error en cero
 
     if(f(a)*f(b) < 0){ //se verfica el teorema de Bolzano
@@ -80,12 +80,12 @@ vector<double> falsa_posicion(string f_, double a, double b, double tol, int ite
                     b = xk_1;
                     n = f(xk_1) * (xk_1 - a); //numerador formula de la secante
                     d = f(xk_1) - f(a); //denominador de la formula de la secante
-                    xk = xk_1;
-                    xk_1 = xk_1 - n/d;
+                    xk = xk_1; //se actualiza el valor de la iteración anterior
+                    xk_1 = xk_1 - n/d; //se calcula el nuevo valor de la aproximación
 
-                    error = abs((xk_1 - xk)/xk_1);
-                    er.push_back(error);
-                    if(error < tol){
+                    error = abs((xk_1 - xk)/xk_1); //se calcula el error
+                    er.push_back(error); //se inserta el error en el vector de errores
+                    if(error < tol){ //se verifica que el error cumpla con la tolerancia
                         break;
                     }
                 }
@@ -94,13 +94,13 @@ vector<double> falsa_posicion(string f_, double a, double b, double tol, int ite
                     a = xk_1;
                     n = f(xk_1) * (xk_1 - b); //numerador formula de la secante
                     d = f(xk_1) - f(b); //denominador de la formula de la secante
-                    xk = xk_1;
-                    xk_1 = xk_1 - n/d;
+                    xk = xk_1; //se actualiza el valor de la iteración anterior
+                    xk_1 = xk_1 - n/d; //se calcula el nuevo valor de la aproximación
 
-                    error = abs((xk_1 - xk)/xk_1);
-                    er.push_back(error);
+                    error = abs((xk_1 - xk)/xk_1); //se calcula el error
+                    er.push_back(error); //se inserta el error en el vector de errores
 
-                    if(error < tol){
+                    if(error < tol){ //se verifica que el error cumpla con la tolerancia
                         break;
                     }
                 }
@@ -129,13 +129,13 @@ vector<double> falsa_posicion(string f_, double a, double b, double tol, int ite
 
 
 int main(){
-    double a = 1;
-    double b = 2;
-    string f = "log(x) - exp(-x) - cos(x)";
-    double tol = 10e-5;
-    int iterMax = 100;
+    double a = 1; //se define el límite inferior del rango
+    double b = 2; //se define el límite superior del rango
+    string f = "log(x) - exp(-x) - cos(x)"; //se define la función a calcularle al menos un cero
+    double tol = 10e-5; //se define la tolerancia
+    int iterMax = 100; //se definen las iteraciones máximas
 
-    vector<double> res = falsa_posicion(f, a, b, tol, iterMax);
+    vector<double> res = falsa_posicion(f, a, b, tol, iterMax); //se llama al método y el resultado se guarda en una variable
     cout << "Aproximación:  " + to_string(res.at(0)) << endl;
     cout << "Error:  " + to_string(res.at(1)) << endl;
 
