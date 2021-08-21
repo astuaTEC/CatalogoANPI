@@ -4,7 +4,7 @@
 #################################
 
 
-#Función auxiliar para llamar a la función de newton_raphson
+#Funcion auxiliar para llamar a la funcion de newton_raphson
 #   En esta función se definen los atributos que la funcion
 #   newton_raphson necesita para calcular la aproximación
 
