@@ -89,7 +89,9 @@ int main(){
     double tol = 10e-9; //se define la tolerancia máxima
     int iterMax = 100; //se definen las iteraciones máximas
 
-    vector<double> res = puntoFijo(g, x0, tol, iterMax); //se llama a la función y el resultado se guarda en una variable
+    vector<double> res = puntoFijo(g, x0, tol, iterMax); //se llama a la función y 
+                                          //el resultado se guarda en una variable
+    
     cout << "Aproximación:  " + to_string(res.at(0)) << endl;
     cout << "Error:  " + to_string(res.at(1)) << endl;
     return 0;

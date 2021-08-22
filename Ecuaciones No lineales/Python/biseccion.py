@@ -8,7 +8,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 """
-Metodo numérico bisección para encontrar al menos un cero de una función f dentro de un rango de valores dado.
+Metodo numérico bisección para encontrar al menos un cero de una función f 
+dentro de un rango de valores dado.
 Además esta función grafica las iteraciones vs el error.
 f: la funcion a aplicarle el método
 a: punto menor del conjunto a evaluar [a, b]
@@ -48,7 +49,8 @@ def biseccion(f, a, b, tol, iterMax):
         xk = "NA"
         k = "NA"
         error = "NA"
-        print("El intervalo seleccionado no cumple las condiciones del teorema de Bolzano")
+        print("El intervalo seleccionado no cumple las condiciones del" 
+        + "teorema de Bolzano")
         return [xk, error]
 
 
@@ -59,5 +61,6 @@ b = 2 #se define el límete superior del rango [a, b]
 tol = 10**-5 #se define la tolerancia máxima
 iterMax = 1000 #se definen las iteracioens máximas antes de detenerse
  
-y = biseccion(f, a, b, tol, iterMax) #se llama a la función con sus parámetros y se guarda en una variable
+y = biseccion(f, a, b, tol, iterMax) #se llama a la función con sus parámetros y 
+                                        #se guarda en una variable
 print(y) #se muestra el resultado

@@ -42,7 +42,8 @@ void plot(vector<double> x, vector<double> y){
 }
 
 /**
- * Metodo numérico falsa posicion para encontrar al menos un cero de una función ingresada f_
+ * Metodo numérico falsa posicion para encontrar al menos un cero de una 
+ * función ingresada f_
  * @param f_: la funcion a aplicarle el método
  * @param a: punto menor del conjunto a evaluar [a, b]
  * @param b: punto mayor del conjunto a evaluar [a, b]
@@ -57,8 +58,11 @@ vector<double> falsa_posicion(string f_, double a, double b, double tol, int ite
     table["x"] = x;
     parser reader(table);
 
-    func = reader(f_); // se pasa de la función en texto a una función que se puede evaluar
-    vector<double> er, iter, resultado; //er: vector de errores, iter: vector de iteraciones, resultado: vector para retornar el resultado
+    func = reader(f_); // se pasa de la función en texto a una función que se 
+                        //puede evaluar
+    vector<double> er, iter, resultado; //er: vector de errores, 
+                                        //iter: vector de iteraciones, 
+                                        //resultado: vector para retornar el resultado
 
     int k = 0; //se inicializa las iteración en cero
     double xk = a; //se actualiza el valor de xk con el límite inferior
@@ -85,7 +89,8 @@ vector<double> falsa_posicion(string f_, double a, double b, double tol, int ite
 
                     error = abs((xk_1 - xk)/xk_1); //se calcula el error
                     er.push_back(error); //se inserta el error en el vector de errores
-                    if(error < tol){ //se verifica que el error cumpla con la tolerancia
+                    //se verifica que el error cumpla con la tolerancia
+                    if(error < tol){ 
                         break;
                     }
                 }
@@ -100,7 +105,8 @@ vector<double> falsa_posicion(string f_, double a, double b, double tol, int ite
                     error = abs((xk_1 - xk)/xk_1); //se calcula el error
                     er.push_back(error); //se inserta el error en el vector de errores
 
-                    if(error < tol){ //se verifica que el error cumpla con la tolerancia
+                    //se verifica que el error cumpla con la tolerancia
+                    if(error < tol){ 
                         break;
                     }
                 }
@@ -131,11 +137,14 @@ vector<double> falsa_posicion(string f_, double a, double b, double tol, int ite
 int main(){
     double a = 1; //se define el límite inferior del rango
     double b = 2; //se define el límite superior del rango
-    string f = "log(x) - exp(-x) - cos(x)"; //se define la función a calcularle al menos un cero
+    string f = "log(x) - exp(-x) - cos(x)"; //se define la función a calcularle 
+                                            //al menos un cero
     double tol = 10e-5; //se define la tolerancia
     int iterMax = 100; //se definen las iteraciones máximas
 
-    vector<double> res = falsa_posicion(f, a, b, tol, iterMax); //se llama al método y el resultado se guarda en una variable
+    vector<double> res = falsa_posicion(f, a, b, tol, iterMax); //se llama al método 
+                                            //y el resultado se guarda en una variable
+    
     cout << "Aproximación:  " + to_string(res.at(0)) << endl;
     cout << "Error:  " + to_string(res.at(1)) << endl;
 
