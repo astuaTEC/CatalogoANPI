@@ -27,25 +27,25 @@ def gradiante_conjugado_no_lineal(funcion, variables, x0, y0, iterMax, tol):
     g_n = sp.lambdify(variables, g)
 
     k = 0
-    gk = g_n(x0, y0)
+    gk = np.array(g_n(x0, y0)).T
     dk = -1*gk
 
-    xk = []
-    xk.append(x0)
-    xk.append(y0)
+    xk = np.array([])
+    xk = np.append(xk, [x0, y0])
+    xk = np.transpose(xk)
 
     iterMax2 = 1000 #iteraciones maximas para el valor de alpha_k
 
     while k < iterMax:
         delta = 0.5; #se define delta
-        alpha_k = 1; #se define alpha_k
+        alpha_k = 1.0; #se define alpha_k
         k += 1
         n = 0
         while n < iterMax2:
             vectorEval = xk + alpha_k*dk
 
             izq = f_n(vectorEval[0], vectorEval[1]) - f_n(xk[0], xk[1])
-            der = delta*alpha_k*dk*gk
+            der = delta*alpha_k* np.sum((gk.T*dk))
 
             n += 1
             if izq <= der:
@@ -54,45 +54,34 @@ def gradiante_conjugado_no_lineal(funcion, variables, x0, y0, iterMax, tol):
                 alpha_k = alpha_k/2
 
         xk = xk + (alpha_k*dk)
-        error = np.linalg.norm(g_n(xk[0], xk[1]))
+        error = np.linalg.norm(np.array(g_n(xk[0], xk[1])))
         
         if error < tol:
             break
 
         gk_anterior = gk
-        gk = g_n(xk[0], xk[1])
+        gk = np.array(g_n(xk[0], xk[1])).T
         
-        beta_k = (np.linalg.norm(gk)^2)/(np.linalg.norm(gk_anterior)^2)
+        beta_k = (np.linalg.norm(gk))**2 / (np.linalg.norm(gk_anterior))**2
         dk = -gk + beta_k*dk
 
-    print(xk)
+    print(xk, error)
 
 
+if __name__ == "__main__":
+    #se definen las variables
+    variables = 'x y'
+    #se crean las variables simbólicas
+    v_var = variables_simbolicas(variables)
+    #se define la función a trabajar
+    f = '(x-2)^4+(x-2*y)^2'
+    #se define un punto inicial
+    x0 = 0
+    y0 = 3
+    #se definen las iteraciones máximas y la tolerancia
+    iterMax = 13
+    tol = 10e-6
+    #se llama a la función
+    gradiante_conjugado_no_lineal(f, v_var, x0, y0, iterMax, tol)
 
-
-"""Ejemplo de Variables"""
-variables = 'x y'
-v_var = variables_simbolicas(variables)
-print(v_var)
-
-"""Ejemplo del Gradiente Simbolico"""
-f = '(x-2)^4+(x-2*y)^2'
-f_s = sp.sympify(f)
-g = gradiente(f_s, v_var)
-print(g)
-
-gradiante_conjugado_no_lineal(f, v_var, 0, 3, 13, 10e-3)
-
-"""Ejemplo de Sustitución Simbolica y Numérica"""
-"""
-x0 = 0
-y0 = 3
-f_n = sp.lambdify(v_var, f)
-print(f_n(x0, y0))
-print(f_s.subs([(v_var[0], x0), (v_var[1], y0)]))
-
-g_n = sp.lambdify(v_var, g)
-g_trans = np.transpose(g)
-g_n_trans = sp.lambdify(v_var, g_trans)
-"""
 
