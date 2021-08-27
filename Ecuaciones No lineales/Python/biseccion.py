@@ -55,8 +55,8 @@ def biseccion(f, a, b, tol, iterMax):
 
 
 
-f = 'log(2*x + 1)'  #se define la función a utilizar.
-a = 1 #se define el límite inferior del rango [a, b]
+f = 'exp(x) - x -2'  #se define la función a utilizar.
+a = -1 #se define el límite inferior del rango [a, b]
 b = 2 #se define el límete superior del rango [a, b]
 tol = 10**-5 #se define la tolerancia máxima
 iterMax = 1000 #se definen las iteracioens máximas antes de detenerse

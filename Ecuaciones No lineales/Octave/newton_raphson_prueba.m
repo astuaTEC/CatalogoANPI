@@ -15,7 +15,7 @@ function newton_raphson_prueba
   f = 'exp(x) + x-2'; % se define la función a utilizar.
   x0 = 5; %se define el punto incial a utilizar
   tol = 10^-9; %se define la tolerancia máxima aceptada
-  iterMax = 100; %se definen las iteraciones máximas antes de parar
+  iterMax = 1000; %se definen las iteraciones máximas antes de parar
   [xk error] = newton_raphson(f, x0, tol, iterMax) %se llama a la función y se muestra el resultado
   
 end
