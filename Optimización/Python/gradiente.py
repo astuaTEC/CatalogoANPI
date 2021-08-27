@@ -1,4 +1,3 @@
-from numpy.core.fromnumeric import transpose
 import sympy as sp
 import numpy as np
 
@@ -30,9 +29,7 @@ def gradiante_conjugado_no_lineal(funcion, variables, x0, y0, iterMax, tol):
     gk = np.array(g_n(x0, y0)).T
     dk = -1*gk
 
-    xk = np.array([])
-    xk = np.append(xk, [x0, y0])
-    xk = np.transpose(xk)
+    xk = np.array([x0, y0]).T
 
     iterMax2 = 1000 #iteraciones maximas para el valor de alpha_k
 
