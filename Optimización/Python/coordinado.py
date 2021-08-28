@@ -1,7 +1,7 @@
 import numpy as np
 import sympy as sp
 from scipy import optimize
-
+import json
 
 def variables_simbolicas(variables):
     n = len(variables)
@@ -23,7 +23,6 @@ def gradiente(f, v_var):
 def coordinado(funcion, variables, puntoInicial, iterMax, tol):
     #funciones
     f_s = sp.sympify(funcion)
-    f_n = sp.lambdify(variables, funcion)
 
     #gradirente
     g = gradiente(f_s, variables)
@@ -35,24 +34,39 @@ def coordinado(funcion, variables, puntoInicial, iterMax, tol):
     numVariables = len(variables)
 
     k = 0
-    n = 0
+    
     while k < iterMax:
         k += 1
+        n = 0
+        indexSuperior = numVariables - 1
         while n < numVariables:
-            simbolica = f_s.subs(variables[n], xk[n+1])
+            
+            simbolica = f_s.subs(variables[indexSuperior], xk[indexSuperior])
 
-            funcion_num = sp.lambdify(variables[n+1], simbolica)
+            funcion_num = sp.lambdify(variables[n], simbolica)
 
             punto = optimize.fmin(funcion_num, puntoInicial[n])
 
-            print(punto)
+            xk[n] = punto[0]
 
-            #xk = [x , y]
             n += 1
+
+            indexSuperior -= 1
         
-        error = np.linalg.norm(g_n(xk[0], xk[1]))
+        data ={}
+        g_evaluado = []
+        for i in range(0, numVariables):
+            data[variables[i]] = xk[i]
+
+        for i in range(0, numVariables):
+            g_evaluado.append(float(g[i].subs(data).evalf()))
+
+        error = np.linalg.norm(g_evaluado)
         if error < tol:
             break
+
+    print(xk, error)
+    return [xk, error]
 
 
 if __name__ == "__main__":
