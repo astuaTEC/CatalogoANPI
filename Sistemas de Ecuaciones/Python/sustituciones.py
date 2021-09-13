@@ -1,5 +1,4 @@
 import numpy as np
-import sympy as sp
 
 
 def sust_adelante(A, b, n):
@@ -28,13 +27,13 @@ def sust_atras(A, b, n):
     
     return soluciones
 
-def eliminacion_gaussiana(A, b):
+def gaussiana(A, b):
     n = len(A)
     res_triangular = obtener_triangular_superior(A, b, n)
     A_t = res_triangular[0]
     b_t = res_triangular[1]
 
-    res = sust_atras(A, b, n)
+    res = sust_atras(A_t, b_t, n)
     return res
 
 def obtener_triangular_superior(A, b, n):
@@ -60,5 +59,5 @@ if __name__ == '__main__':
 
     #print(obtener_triangular_superior(A2, b2, 3))
     #print(sust_atras(A, b, n))
-    print(eliminacion_gaussiana(A2, b2))
+    print(gaussiana(A2, b2))
 
