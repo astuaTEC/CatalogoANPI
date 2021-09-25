@@ -31,7 +31,7 @@ def NewtonRaphson(f, x0 , tolerancia , iterMax):
     fig, graf = plt.subplots()  # se crea la gráfica
     ejeX = np.arange(0, k, 1)  # se crea el eje X (son las iteraciones)
     graf.plot(ejeX, er)  # se grafican los datos
-    plt.title('newton_H_m1')
+    plt.title('Metodo de Newton')
     plt.show()  # se muestra la gráfica
     return [xk, error, k]  # se retorna la aproximación y el error
 
