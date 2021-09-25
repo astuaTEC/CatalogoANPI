@@ -23,9 +23,9 @@ def obtener_abc(A, n):
             if j == i: #Diagonal
                 b[i] = A[i, j]#Guarda valor en la matriz
             elif i+1 == j:
-                a[i] = A[i, j]
-            elif i-1 == j:
                 c[i] = A[i, j]
+            elif i-1 == j:
+                a[i] = A[i, j]
             else:
                 if A[i, j] != 0:
                     raise ValueError("Esta matriz no es tridiagonal")
