@@ -51,10 +51,10 @@ vector<colvec> obtener_abc(mat A, int n){
                 b(i) = A(i, j);
             }
             else if(i+1 == j){
-                a(i) = A(i, j);
+                c(i) = A(i, j);
             }
             else if(i-1 == j){
-                c(i) = A(i, j);
+                a(i) = A(i, j);
             }
             else{
                 if (A(i, j) != 0){
