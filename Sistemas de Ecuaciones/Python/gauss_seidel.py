@@ -55,10 +55,6 @@ def gauss_seidel(A, b, x0, tol, iterMax):
     L = matriz_l(A, n)
     U = matriz_u(A, n)
 
-    print(L)
-    print(D)
-    print(U)
-
     y = sust_adelante(L+D, b, n)
     xk = x0
 
