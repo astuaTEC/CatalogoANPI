@@ -1,14 +1,8 @@
-<<<<<<< HEAD
-from mpmath.functions.functions import re
-=======
-#Metodo de la falsa posicion
-
->>>>>>> main
 import sympy as sp
 import numpy as np
 import matplotlib.pyplot as plt
 
-<<<<<<< HEAD
+
 f = 'log(x) - exp(-x) - cos(x)'  # se define la función a utilizar.
 a = 1  # se define el límite inferior del rango [a, b]
 b = 2 # se define el límite superior del rang0 [a, b]
@@ -67,12 +61,8 @@ def falsaPosicion(f, a , b,  tolerancia , iterMax):
 
 funcion1 = falsaPosicion(f, a , b, tolerancia, iterMax)
 print("Aproximación: ", funcion1[0], " Error: ", funcion1[1], " Iteraciones: ", funcion1[2] - 1)
-=======
-import sympy as sp
-import numpy as np
-import matplotlib.pyplot as plt
 
-def falsaPosicion(f, a, b, tol, iterMax):
+def falsaPosicionExamen(f, a, b, tol, iterMax):
     x = sp.Symbol('x')
     f1 = sp.sympify(f)
     print(f1)
@@ -133,6 +123,5 @@ b = 2
 tol = 10**-5
 iterMax = 1000
 
-y = falsaPosicion(f, a, b, tol, iterMax)
+y = falsaPosicionExamen(f, a, b, tol, iterMax)
 print(y)
->>>>>>> main
