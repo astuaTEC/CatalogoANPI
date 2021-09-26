@@ -4,7 +4,9 @@
 
 % Metodo de punto fijo, el cual calcula almenos un creo segun  los parametros  
 % de entrada
-function punto_fijo 
+
+function punto_fijo
+  pkg load symbolic
   clc; clear; %Limpia consola
   format long; %Permite retornar un valor con muchas decimales
   f = 'log(2*x + 1)'; %Funcion entrada

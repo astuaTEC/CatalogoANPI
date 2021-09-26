@@ -18,13 +18,15 @@ def secante(f, x0 , x1,  tolerancia , iterMax):
     xk1 = x1
     error = tolerancia + 1  # se define un valor inicial para el error
     k = 0  # se inicializa las iteraciones en cero
-    while error > tolerancia and k < iterMax:
+    while error > tolerancia:
         k += 1  # Se suma el valor de la iteracion
         xkAux = xk
         xk = xk - f_eval(xk) * ( (xk - xk1) / ( f_eval(xk)-f_eval(xk1))) # la funcion# se calcula una nueva interacion
         xk1 = xkAux 
         error = abs(f_eval(xk))  # se calcula el error
         er.append(sp.N(error))  # se agrega el error al vector de error
+        if(error < tolerancia): # se verifica que el error cumpla con la tolerancia
+            break
     fig, graf = plt.subplots()  # se crea la gráfica
     ejeX = np.arange(0, k, 1)  # se crea el eje X (son las iteraciones)
     graf.plot(ejeX, er)  # se grafican los datos
