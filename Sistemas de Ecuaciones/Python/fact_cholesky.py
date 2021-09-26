@@ -47,7 +47,12 @@ def fact_cholesky(A, b):
     return x
 
 if __name__ == '__main__':
-    A = np.matrix('25 15 -5 -10; 15 10 1 -7; -5 1 21 4; -10 -7 4 18')
-    b = np.matrix('-25; -19; -21; -5')
+    A = np.eye(250,250,k=-1) + np.eye(250,250)*4 + np.eye(250,250,k=1)
+    b =  np.full((250, 1), 3, dtype=float)
+    b[0] = 2.5
+    b[-1] = 2.5
+
+    #A = np.matrix('25 15 -5 -10; 15 10 1 -7; -5 1 21 4; -10 -7 4 18')
+    #b = np.matrix('-25; -19; -21; -5')
 
     print(fact_cholesky(A, b))
