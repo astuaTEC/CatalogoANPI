@@ -10,6 +10,13 @@ Comandos para la compilacion
 using namespace std;
 using namespace arma;
 
+/**
+ * @brief  Método que realiza la sustitución hacia adelante 
+ * en un sistema de ecuaciones
+ * @param A una matriz cuadrada
+ * @param b vector de términos independientes
+ * @param n tamanio de la matriz
+ */
 vec sust_adelante(mat A, vec b, int n){
     vec soluciones(n);
     soluciones.zeros();
@@ -25,6 +32,14 @@ vec sust_adelante(mat A, vec b, int n){
     return soluciones;
 }
 
+/**
+ * @brief  Método que realiza la sustitución hacia atrás 
+ * en un sistema de ecuaciones
+ * @param A una matriz cuadrada
+ * @param b vector de términos independientes
+ * @param n tamanio de la matriz
+ * @return vector con la solución
+ */
 vec sust_atras(mat A, vec b, int n){
     vec soluciones(n);
     soluciones.zeros();
@@ -40,6 +55,13 @@ vec sust_atras(mat A, vec b, int n){
     return soluciones;
 }
 
+/**
+ * @brief Verifica si la matriz tiene una única
+ * factorización LU
+ * @param A matriz cuadrada
+ * @param n el tamanio de la matriz
+ * @return true si cumple, false si no
+ */
 bool verificar_fact_lu(mat A, int n){
     double tol = datum::eps;
     for (int i = 0; i < n; i++)
@@ -54,6 +76,13 @@ bool verificar_fact_lu(mat A, int n){
     
 }
 
+/**
+ * @brief Método para obtener la factorización LU
+ * de una determinada matriz
+ * @param A una matriz cuadrada
+ * @param n el tamanio de la matriz
+ * @return un vector con la matriz L y U
+ */
 vector<mat> obtener_lu(mat A, int n)
 {
     mat U = A;
@@ -80,11 +109,17 @@ vector<mat> obtener_lu(mat A, int n)
     return result;
 }
 
-
+/**
+ * @brief Función para resolver sistemas de ecuaciones
+ * mediante el método directo de factorización LU
+ * @param A una matriz cuadrada
+ * @param b vector de términos independientes
+ * @return la solución del sistema
+*/
 vec fact_lu(mat A, vec b){
     int n = A.n_rows;
-    if(!verificar_fact_lu(A, n)){
-        return "No cumple con los requisitos";
+    if(!verificar_fact_lu(A, n)){ //se verifica el teorema de convergencia
+        return "No cumple con los requisitos de la fact LU";
     }
 
     vector<mat> LU = obtener_lu(A, n);

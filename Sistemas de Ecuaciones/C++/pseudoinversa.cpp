@@ -12,7 +12,8 @@ namespace plt = matplotlibcpp;
 
 
 /**
- * Grafica el error en funcion de la cantidad de iteraciones
+ * @brief Grafica el error en funcion 
+ * de la cantidad de iteraciones
  * @param x: El set de valores del eje x (iteraciones)
  * @param y: El set de valores del eje y (error)
  */ 
@@ -23,6 +24,16 @@ void plot(vector<double> x, vector<double> y){
     plt::show();
 }
 
+/**
+ * @brief Función para resolver sistemas de ecuaciones
+ * a partir de la pseudoinversa de una matriz
+ * mediante el método iterativo de Newton-Schultz
+ * @param A una matriz cuadrada
+ * @param b vector de términos independientes
+ * @param tol tolerancia de la aproximación
+ * @param iterMax iteraciones máximas
+ * @return la aproximación y el error asociado
+*/
 void pseudoinversa(mat A, vec b, double tol, int iterMax=15){
     int n = A.n_rows;
     int m = A.n_cols;

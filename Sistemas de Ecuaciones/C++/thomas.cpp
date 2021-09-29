@@ -10,7 +10,13 @@ Comandos para la compilacion
 using namespace std;
 using namespace arma;
 
-
+/**
+ * @brief Método para verificar si una matriz
+ * es tridiagonal
+ * @param A una matriz cuadrada
+ * @param n el tamanio de la matriz
+ * @return true si cumple, false si no
+*/
 bool verificarTridiagonal(mat A, int n){
     for (int i = 0; i < n; i++)
     {
@@ -32,7 +38,13 @@ bool verificarTridiagonal(mat A, int n){
     return true;
 }
 
-
+/**
+ * @brief Método para obtener los vectores
+ * a, b y c de la matriz tridiagonal
+ * @param A la matriz tridiagonal
+ * @param n el tamanio de la matriz
+ * @return un vector con los vectores a, b, c
+*/
 vector<colvec> obtener_abc(mat A, int n){
     vec a(n);
     a.zeros();
@@ -72,7 +84,16 @@ vector<colvec> obtener_abc(mat A, int n){
     return result; 
 }
 
-
+/**
+ * @brief Método auxiliar de thomas para trabajar
+ * con los vectores a, b, c y d
+ * @param a vector a
+ * @param b vector b
+ * @param c vector c
+ * @param d vector d
+ * @param n tamanio de los vectores
+ * @return la solución del sistema xk
+*/
 vec thomas_aux(vec a, vec b, vec c, vec d, int n){
     vec p(n);
     p.zeros();
@@ -113,9 +134,17 @@ vec thomas_aux(vec a, vec b, vec c, vec d, int n){
     {
         xk(i) = q(i) - p(i)*xk(i+1);
     }
+
     return xk; 
 }
 
+/**
+ * @brief Función para resolver sistemas de ecuaciones
+ * mediante el método directo de Thomas
+ * @param A una matriz cuadrada
+ * @param b vector de términos independientes
+ * @return la solución del sistema
+*/
 vec thomas(mat A, vec b){
     int n = A.n_rows;
     if(!verificarTridiagonal(A, n)){
