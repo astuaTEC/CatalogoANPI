@@ -63,8 +63,6 @@ def obtener_triangular_superior(A, b, n):
     b_res = A_aum[:, n]
     return [A_res, b_res]
 
-
-
 """
 Función para resolver sistemas de ecuaciones
 mediante el método directo de eliminación Gaussiana

@@ -92,6 +92,10 @@ Salidas: xk es el valor de la aproximación
          error es el error asociado
 """
 def gauss_seidel(A, b, x0, tol, iterMax):
+    #se revisa el teorema de convergencia
+    if (not(diagonalmenteDominate(A.copy()))):
+        return "La matriz tiene que ser diagonalmente dominante"
+
     n = len(A)
     D = matriz_d(A, n)
     L = matriz_l(A, n)
@@ -125,8 +129,12 @@ def gauss_seidel(A, b, x0, tol, iterMax):
 if __name__ == '__main__':
     tol = 1e-5
     iterMax = 2000
-    x0 = np.matrix('0; 0; 0; 0')
-    A = np.matrix('25 15 -5 -10; 15 10 1 -7; -5 1 21 4; -10 -7 4 18')
-    b = np.matrix('-25; -19; -21; -5')
+    #x0 = np.matrix('0; 0; 0; 0')
+    #A = np.matrix('25 15 -5 -10; 15 10 1 -7; -5 1 21 4; -10 -7 4 18')
+    #b = np.matrix('-25; -19; -21; -5')
 
-    print(gauss_seidel(A, b, x0, tol, iterMax))
+    A2 = np.matrix('5 1 1; 1 5 1; 1 1 5')
+    b2 = np.matrix('7; 7; 7')
+    x0 = np.matrix('0; 0; 0')
+
+    print(gauss_seidel(A2, b2, x0, tol, iterMax))
