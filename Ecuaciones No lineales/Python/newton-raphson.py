@@ -19,7 +19,7 @@ def NewtonRaphson(f, x0 , tolerancia , iterMax):
     xk = x0  # Se define el primer valor o el valor inicial de x0
     error = tolerancia + 1  # se define un valor inicial para el error
     k = 0  # se inicializa las iteraciones en cero
-    while error > tolerancia and k < iterMax:
+    while k < iterMax:
         k += 1  # Se suma el valor de la iteracion
         if(f_derivda(xk) == 0):
             print('Funcion contiene punto critico')
@@ -27,7 +27,8 @@ def NewtonRaphson(f, x0 , tolerancia , iterMax):
         xk = xk - f_eval(xk) / f_derivda(xk)  # se calcula una nueva interacion
         error = abs(f_eval(xk))  # se calcula el error
         er.append(sp.N(error))  # se agrega el error al vector de error
-    
+        if(error < tolerancia):
+            break
     fig, graf = plt.subplots()  # se crea la gráfica
     ejeX = np.arange(0, k, 1)  # se crea el eje X (son las iteraciones)
     graf.plot(ejeX, er)  # se grafican los datos
