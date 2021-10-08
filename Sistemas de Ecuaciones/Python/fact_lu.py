@@ -1,4 +1,4 @@
-from sustituciones import *
+from gaussiana import *
 import numpy as np
 
 def verificar_fact_lu(A, n):
