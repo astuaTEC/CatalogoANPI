@@ -2,11 +2,24 @@ import sympy as sp
 import numpy as np
 from scipy.optimize import fminbound
 
+"""
+Función para aproximar el valor de una integral definida
+por medio del método de Simpson compuesto
+Entradas:
+    func: función a trabajar
+    n: número de puntos a utilizar
+    intervalo: intervalo a donde se quiere
+                aproximar la integral
+Salidas:
+    aproximación: La aproximación de la integral
+    cota_error: la cota de error asociada al método
+"""
 def simpson_compuesto(func, n, intervalo):
     x = sp.Symbol('x')
     f_simbolica = sp.sympify(func) # Se define de la funcion funcion
     f_eval = sp.lambdify(x , f_simbolica) # La funcion inicial se pasa a a una funcion evaluable
 
+    #se obtienen los extremos y el valor h
     a = intervalo[0]
     b = intervalo[1]
     h = (b - a)/(n-1)
@@ -21,6 +34,7 @@ def simpson_compuesto(func, n, intervalo):
     for i in range(1, n-1, 2):
         sumatoria_impares += f_eval(xi[i])
 
+    #se utiliza la formula del método
     aproximacion = (h/3)*(f_eval(xi[0]) + 2*sumatoria_pares + 4*sumatoria_impares + f_eval(xi[n-1]))
 
     # Para sacar un máximo de la función en

@@ -1,7 +1,17 @@
 import sympy as sp
-import numpy as np
 from scipy.optimize import fminbound
 
+"""
+Función para aproximar el valor de una integral definida
+por medio del método de Simpson
+Entradas:
+    func: función a trabajar
+    intervalo: intervalo a donde se quiere
+                aproximar la integral
+Salidas:
+    aproximación: La aproximación de la integral
+    cota_error: la cota de error asociada al método
+"""
 def simpson(func, intervalo):
     x = sp.Symbol('x')
     f_simbolica = sp.sympify(func) # Se define de la funcion funcion
@@ -11,6 +21,7 @@ def simpson(func, intervalo):
     a = intervalo[0]
     b = intervalo[-1]
 
+    #se aplica la fórmula de Simpson
     aproximacion = ((b-a)/6)*(f_eval(a) + 4*f_eval((a+b)/2) + f_eval(b))
 
     # Para sacar un máximo de la función en
