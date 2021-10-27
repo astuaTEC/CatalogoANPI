@@ -9,12 +9,6 @@ function trapecio_aux
   [aprox cota_error] = trapecio(f ,intervalo)
 end
 
-%Se calcula la cota de error y el aproximado segun la formula del trapecio
-%Entradas: F => Funcion numerica , intervalo => intervalo a integras limites de 
-%la integral.
-%Salida: aprox => Valor Aproximado de la intergral
-%cota_error => Error asociado al metodo
-
 function [aprox cota_error] = trapecio(f ,intervalo)
   syms x;
   f_simbolica = sym(f);

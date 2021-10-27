@@ -12,6 +12,12 @@ function trapecio_compuesto_aux
   [aprox cota_error] = trapecio_compuesto(f ,n ,intervalo)
 
 end
+%Se calcula la cota de error y el aproximado segun la formula del trapecio 
+%compuesto
+%Entradas: F => Funcion numerica , intervalo => intervalo a integras limites de 
+%la integral n => numero de puntos.
+%Salida: aprox => Valor Aproximado de la intergral
+%cota_error => Error asociado al metodo
 
 function [aprox cota_error] = trapecio_compuesto(f, n, intervalo)
   syms x;
@@ -25,6 +31,7 @@ function [aprox cota_error] = trapecio_compuesto(f, n, intervalo)
   xi = [];
   xi = [xi,intervalo(1)];
   
+  %Calculo de la sumatoria de la integral
   for i=2:n
     xi = [xi, xi(i-1) + 1];
   endfor
@@ -34,6 +41,7 @@ function [aprox cota_error] = trapecio_compuesto(f, n, intervalo)
   
   aprox = (h/2)*sumatoria;
   
+  %Calculo dela cota de error
   f_derivada_2 = diff(f_simbolica,2);
   f_derivada_2_evaluable = matlabFunction(f_derivada_2);
   f_aux = -1 * abs(f_derivada_2); 
