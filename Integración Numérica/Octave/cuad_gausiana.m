@@ -13,6 +13,16 @@ function cuad_gausiana_aux
   
 end
 
+% Funci贸n para aproximar el valor de una integral definida
+% por medio de las cuadraturas gaussianas
+% Entradas:
+%   func: funci贸n a trabajar
+%   n: n煤mero de puntos a utilizar
+%   intervalo: intervalo a donde se quiere
+%                aproximar la integral
+% Salidas:
+%   aproximaci贸n: La aproximaci贸n de la integral
+%   cota_error: la cota de error asociada al m茅todo
 function [aproximacion cota_error] = cuad_gausiana(func, n, intervalo)
     syms x;
     f_simbolica = sym(func);
@@ -39,14 +49,14 @@ function [aproximacion cota_error] = cuad_gausiana(func, n, intervalo)
       faux = -1*f4;
       faux_4 = matlabFunction(faux);
         
-      #se obtiene el m醲imo en ese intervalo
+      #se obtiene el m锟絰imo en ese intervalo
       x_max = fminbnd(faux_4, -1, 1);
 
       fn4 = matlabFunction(f4);
 
       alpha_max = fn4(x_max);
 
-      #se calcula la cota con la f髍mula
+      #se calcula la cota con la f锟絩mula
       cota_error = alpha_max/135;
       
     else
