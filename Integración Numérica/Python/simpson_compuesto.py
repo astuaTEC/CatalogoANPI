@@ -15,6 +15,9 @@ Salidas:
     cota_error: la cota de error asociada al método
 """
 def simpson_compuesto(func, n, intervalo):
+    if n%2 == 0:
+        print("Debe ser un numero impar de puntos")
+        return 0, 0
     x = sp.Symbol('x')
     f_simbolica = sp.sympify(func) # Se define de la funcion funcion
     f_eval = sp.lambdify(x , f_simbolica) # La funcion inicial se pasa a a una funcion evaluable
