@@ -1,4 +1,5 @@
-%% Ejemplo del M«±todo de Euler
+
+%% Ejemplo del Mï¿½ï¿½ï¿½todo de Euler
 clc; clear; close all
 a=0; b=5;
 num_pt=11;
@@ -11,11 +12,11 @@ for n=1:num_pt-1
 end
 
 
-%Gr«¡fica de la aproximaci«Ñn
+%Grï¿½ï¿½ï¿½fica de la aproximaciï¿½ï¿½ï¿½n
 hold on
 plot(xv,yv,'r')
 
-%Soluci«Ñn anal«¿tica
+%Soluciï¿½ï¿½ï¿½n analï¿½ï¿½ï¿½tica
 y_s=@(x) (x+1).^2-0.5*exp(x);
 %Graficar la solucion
 x_g=a:0.0001:b;
