@@ -9,7 +9,7 @@ function cuad_gausiana_aux
   intervalo = [2 5];
   orden = 2;
   
-  [aproximacion, cota_error] = cuad_gausiana(f, orden, intervalo)
+  [aproximacion, cota_error] = cuad_gaussiana(f, orden, intervalo)
   
 end
 
@@ -23,7 +23,7 @@ end
 % Salidas:
 %   aproximación: La aproximación de la integral
 %   cota_error: la cota de error asociada al método
-function [aproximacion cota_error] = cuad_gausiana(func, n, intervalo)
+function [aproximacion cota_error] = cuad_gaussiana(func, n, intervalo)
     syms x;
     f_simbolica = sym(func);
     
