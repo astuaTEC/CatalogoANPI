@@ -1,47 +1,14 @@
-function euler_aux
-  pkg load symbolic;
-  %% Ejemplo del M���todo de Euler
-  clc; clear; close all
-  warning off;
-  
-  intervalo = [0 5];
-  num_pt = 11;
-  funcion = 'y - x^2 + 1';
-  yinicial = 0.5;
-  
-  [xv, yv, polinomioInterpolacion] = euler(funcion, intervalo, num_pt, yinicial)
-  
-   
-endfunction
 
-
-function [xv, yv, polinomioInterpolacion] = euler(funcion, intervalo, pasosh, yinicial)
-  % Simbolico
-  syms x;
-  f_simbolica = sym(funcion);
-  
-  n = pasosh;
-  
-  f = matlabFunction(f_simbolica);
-  
-  a = intervalo(1);
-  b = intervalo(2);
-  
-  h=(b-a)/(n-1);
-  xv=a:h:b
-  yv=[yinicial];
-  for i=1:n-1  
-    yv(i+1)=yv(i)+h*f(xv(i),yv(i));
-  end
-  
-  polinomioInterpolacion = dd_newton(xv, yv);
-  poli_n = matlabFunction(polinomioInterpolacion);
-  
-  hold on
-  ezplot(poli_n, intervalo);
-  stem(xv, yv, 'b');
-  
-endfunction 
+##function dd_newton_aux
+##  clc; clear; %se limpia la consola
+##  format long; %se configura el formato long para el resultado numérico
+##  warning off; %se desactivan los mensajes de advertencia
+##  
+##  xv = [-2 0 1];
+##  yv = [0 1 -1];
+##  
+##  polinomioInterpolacion = dd_newton(xv, yv)
+##end
 
 
 function polinomioInterpolacion = dd_newton(xv, yv)

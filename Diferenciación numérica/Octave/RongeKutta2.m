@@ -10,11 +10,11 @@ f=@(x,y) -x*y + 4*x/y
 h=(b-a)/(num_pt-1);
 xv = a:h:b;
 yv = [1];
-for n=1:num_pt-1 
-  k1 = f(xv(n),yv(n));
-  k2 = f(xv(n) + h/2, yv(n) + h*k1/2);
+for i=1:num_pt-1 
+  k1 = f(xv(i),yv(i));
+  k2 = f(xv(i) + h/2, yv(i) + h*k1/2);
   
-  yv(n+1) = yv(n) + h*k2;
+  yv(i+1) = yv(i) + h*k2;
 end
 
 yv 

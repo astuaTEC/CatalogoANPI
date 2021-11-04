@@ -7,9 +7,9 @@ f=@(x,y) y-x.^2+1;
 h=(b-a)/(num_pt-1);
 xv=a:h:b;
 yv=[0.5];
-for n=1:num_pt-1 
-  zv = yv(n)+h*f(xv(n),yv(n));
-  yv(n+1)= yv(n) + h/2*(f(xv(n),yv(n)) + f(xv(n+1),zv));
+for i=1:num_pt-1 
+  zv = yv(i)+h*f(xv(i),yv(i));
+  yv(i+1)= yv(i) + h/2*(f(xv(i),yv(i)) + f(xv(i+1),zv));
 end
 
 
