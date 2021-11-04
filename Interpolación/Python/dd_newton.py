@@ -10,7 +10,7 @@ Entradas:       xv = vector con los puntos en x.
 Salidas:        polinomioInterpolacion = polinomio de interpolacion
                 tras ser calculado.
 '''
-def dd_newton(xv,yv):
+def dd_newton(xv, yv):
     x = sp.Symbol('x')
     n = len(xv)
 
