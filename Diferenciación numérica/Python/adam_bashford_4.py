@@ -1,50 +1,51 @@
 import numpy as np
-from sympy import *
 import matplotlib.pyplot as plt
+from sympy import *
 
 
-"""
-Función del metodo de euler para diferenciacion numerica
-Entradas:
-    funcion: función a trabajar
-    intervalo: intervalo a trabajar
-    pasoh: número de puntos a utilizar
-    yinicial: imagen inicial para ejecutar el algoritmo
-Salidas:
-    (xv, yv): Pares ordenados
-    polinomio: Respectivo polinomio de interpolacion
+
+# f: Funcion del tipo f(x,y)
+#     #Entradas:
+#	 interv: Lista con los valores frontera en x con la forma: [xi, xf]
+#    h: tamaño de paso 
+#    yo: Valor inicial de la solucion para y(x=0) 
+
+#Salidas:
+# 	 xk: coordenadas x evaluadas
+# 	 yk: coodernadas y obtenidas
+# 	 poly: polinomio de interpolacion en formato string
+def adam_bashford_4(f, interv, pasoh, yo):
+
     
-"""
-def euler(funcion, intervalo, pasoh, yinicial):
-    x = Symbol('x')
-    y  = Symbol('y')
-    
-    f_s = sympify(funcion) #simbolica
+    a = interv[0]
+    b = interv[1]
 
-    n = pasoh
-
-    f = lambdify([x, y], f_s)
-
-    a = intervalo[0]
-    b = intervalo[1]
+    n = pasoh 
 
     h = (b-a)/(n-1)
-    xv = np.linspace(a, b, n)
+
+    xk = np.linspace(a,b,n)
+    yk = np.zeros(n)
+
+    x = symbols('x')
+    y = symbols('y')
+    f_s = sympify(funcion) #simbolica
+    f = lambdify([x, y], f_s)
+
+    yk[0] = yo
+    yk[1] = yk[0] + h*f(xk[0], yk[0])
+    yk[2] = yk[1] + h/2*(3*f(xk[1], yk[1]) - f(xk[0], yk[0]))
+    yk[3] = yk[2] + h/12*(23*f(xk[2], yk[2]) - 16*f(xk[1], yk[1]) + 5*f(xk[0], yk[0]))
+    for i in range(3, n-1):
+        yk[i+1] = yk[i] + h/24*(55*f(xk[i], yk[i]) - 59*f(xk[i-1], yk[i-1]) + 37*f(xk[i-2], yk[i-2]) - 9*f(xk[i-3], yk[i-3]))
     
-    yv = np.empty(n)
-    yv[0] = yinicial
-
-    #se ejecuta el calculo de las imagenes
-    for i in range(n-1):
-        yv[i+1] = yv[i] + h*f(xv[i], yv[i])
-
-    p = lagrange(xv, yv) #Crea polinomio de interpolación
+    p = lagrange(xk, yk) #Crea polinomio de interpolación
     p_n = lambdify(x, p)
 
 
     #Formato de la línea y los puntos
-    plt.scatter(xv, p_n(xv), color='r',zorder=1) 
-    plt.plot(xv, p_n(xv), color='b',zorder=2)
+    plt.scatter(xk, p_n(xk), color='r',zorder=1) 
+    plt.plot(xk, p_n(xk), color='b',zorder=2)
 
     #Especifiaciones de gráfica
     plt.title("Gráfica polinomio de interpolación")
@@ -54,8 +55,9 @@ def euler(funcion, intervalo, pasoh, yinicial):
     #Muestra gráfica
     plt.show()
 
-    return (xv, yv), p
+    return (xk, yk), p
     
+
 
 """
 Función para interpolar una función mediante
@@ -100,13 +102,15 @@ def fun_Lk(xv, k):
     Lk = expand(Lk)
     return Lk
 
-if __name__ == '__main__':
-    intervalo = [0, 5]
-    num_pt = 11
-    funcion = "y - x^2 + 1"
-    yinicial = 0.5
 
-    res = euler(funcion, intervalo, num_pt, yinicial)
+
+if __name__ == '__main__':
+    intervalo = [2, 4]
+    num_pt = 11
+    funcion = "1+(x-y)**2"
+    yinicial = 1
+
+    res = adam_bashford_4(funcion, intervalo, num_pt, yinicial)
 
     print("Pares ordenados: ", res[0])
     print("Polinomio de interpolacion: ", res[1])

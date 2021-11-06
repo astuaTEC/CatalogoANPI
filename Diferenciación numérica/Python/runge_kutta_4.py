@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 """
-Función del metodo de euler para diferenciacion numerica
+Función del metodo de runge_kutta para diferenciacion numerica
 Entradas:
     funcion: función a trabajar
     intervalo: intervalo a trabajar
@@ -15,7 +15,7 @@ Salidas:
     polinomio: Respectivo polinomio de interpolacion
     
 """
-def euler(funcion, intervalo, pasoh, yinicial):
+def runge_kutta(funcion, intervalo, pasoh, yinicial):
     x = Symbol('x')
     y  = Symbol('y')
     
@@ -34,12 +34,16 @@ def euler(funcion, intervalo, pasoh, yinicial):
     yv = np.empty(n)
     yv[0] = yinicial
 
-    #se ejecuta el calculo de las imagenes
-    for i in range(n-1):
-        yv[i+1] = yv[i] + h*f(xv[i], yv[i])
+    for i in range(n-1): 
+        k1 = f(xv[i],yv[i])
+        k2 = f(xv[i] + h/2, yv[i] + h*k1/2)
+        k3 = f(xv[i] + h/2, yv[i] + h*k2/2)
+        k4 = f(xv[i]+ h, yv[i] + h*k3)
+        yv[i+1] = yv[i] + h/6 * (k1 + 2*k2 + 2*k3 + k4)
 
     p = lagrange(xv, yv) #Crea polinomio de interpolación
     p_n = lambdify(x, p)
+
 
 
     #Formato de la línea y los puntos
@@ -101,12 +105,12 @@ def fun_Lk(xv, k):
     return Lk
 
 if __name__ == '__main__':
-    intervalo = [0, 5]
+    intervalo = [0, 1]
     num_pt = 11
-    funcion = "y - x^2 + 1"
-    yinicial = 0.5
+    funcion = "-x*y+4*x/y"
+    yinicial = 1
 
-    res = euler(funcion, intervalo, num_pt, yinicial)
+    res = runge_kutta(funcion, intervalo, num_pt, yinicial)
 
     print("Pares ordenados: ", res[0])
     print("Polinomio de interpolacion: ", res[1])
