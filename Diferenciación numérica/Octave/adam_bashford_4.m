@@ -1,16 +1,16 @@
-%Predictor corrector
-function predictor_corrector_aux
-  pkg load symbolic;
 
+
+function adam_bashford_4_aux
+  pkg load symbolic;
   clc; clear; close all
   warning off;
   
-  intervalo = [0 2];
+  intervalo = [2 4];
   pasoh = 11;
-  funcion = 'y - x^2 + 1';
-  yinicial = 0.5;
+  funcion = '1 + (x-y)^2';
+  yinicial = 1;
   
-  [xv, yv, polinomioInterpolacion] = predictor_corrector(funcion, intervalo, pasoh, yinicial)
+  [xv, yv, polinomioInterpolacion] = adam_bashford_4(funcion, intervalo, pasoh, yinicial)
   
 endfunction
 
@@ -18,33 +18,39 @@ endfunction
 % Entradas:
 %	   intervalo: Lista con los valores frontera en x con la forma: [xi, xf]
 %    pasoh: tamaño de paso 
-%    yinicial: Valor inicial de la solucion para y(x=0) 
+%    yo: Valor inicial de la solucion para y(x=0) 
 
 %Salidas:
 % 	 xv: coordenadas x evaluadas
 % 	 yv: coodernadas y obtenidas
 % 	 polinomioInterpolacion: polinomio de interpolacion en formato simbolico
-function [xv, yv, polinomioInterpolacion] = predictor_corrector(funcion, intervalo, pasoh, yinicial)
+function [xv, yv, polinomioInterpolacion] = adam_bashford_4(funcion, intervalo, pasosh, y0)
   % Simbolico
   syms x;
+  syms y;
+  
   f_simbolica = sym(funcion);
   
-  n = pasoh;
+  n = pasosh;
   
   f = matlabFunction(f_simbolica);
   
   a = intervalo(1);
   b = intervalo(2);
   
-  h=(b-a)/(n-1);
-  xv=a:h:b;
-  yv=[yinicial];
+  h = (b-a)/(n-1);
+  xv = a:h:b;
   
-  %se calculan las y con las formulas
-  for i=1:n-1 
-    zv = yv(i)+h*f(xv(i),yv(i));
-    yv(i+1)= yv(i) + h/2*(f(xv(i),yv(i)) + f(xv(i+1),zv));
-  end
+  %Se calulan las y con las formulas del metodo
+  yv(1) = y0;
+  yv(2) = yv(1) + h*f(xv(1), yv(1));
+  yv(3) = yv(2) + h/2*(3*f(xv(2), yv(2)) - f(xv(1), yv(1)));
+  yv(4) = yv(3) + h/12*(23*f(xv(3), yv(3)) - 16*f(xv(2), yv(2)) + 5*f(xv(1), yv(1)));
+  
+  for i=4:n-1
+      yv(i+1) = yv(i) + h/24*(55*f(xv(i), yv(i)) 
+      - 59*f(xv(i-1), yv(i-1)) + 37*f(xv(i-2), yv(i-2)) - 9*f(xv(i-3), yv(i-3)));
+  endfor 
   
   polinomioInterpolacion = dd_newton(xv, yv);
   poli_n = matlabFunction(polinomioInterpolacion);
@@ -55,13 +61,9 @@ function [xv, yv, polinomioInterpolacion] = predictor_corrector(funcion, interva
   
 endfunction 
 
-
-% Funcion para calcular el polinomio de interpolacion, mediante el metodo
-% de diferencias divididas de Newton.
-% Entradas:       xv = vector con los puntos en x.
-%                 yv = vector con los puntos en y.
-%Salidas:        polinomioInterpolacion = polinomio de interpolacion
-%                tras ser calculado.
+% Funcion o
+%
+%
 function polinomioInterpolacion = dd_newton(xv, yv)
    pkg load symbolic;
    syms x;
@@ -73,19 +75,19 @@ function polinomioInterpolacion = dd_newton(xv, yv)
      return
    endif
   
-   # Se calcula el primer termino del polinomio de interpolacion.
+   % Se calcula el primer termino del polinomio de interpolacion.
    polinomioInterpolacion = yv(1);
 
    variable = 1;
 
-   # Cantidad de operaciones a realizar por cada iteracion.
+   % Cantidad de operaciones a realizar por cada iteracion.
    contador = n - 1;
    
    for i=2:n
-     # Se van almacenando las variables (x-x0)(x-x1)...(x-xn-1).
+     % Se van almacenando las variables (x-x0)(x-x1)...(x-xn-1).
      variable = variable * (x-xv(i-1));
      
-     # Lista para almacenar los multiplicadores.
+     % Lista para almacenar los multiplicadores.
      multiplicadores = [];
      
      for j=1:contador
@@ -94,14 +96,14 @@ function polinomioInterpolacion = dd_newton(xv, yv)
       multiplicadores = [multiplicadores numerador/denominador];
      endfor
      
-     # Se reduce en uno la cantidad de operaciones a realizar para 
-     # la siguiente iteracion.
+     % Se reduce en uno la cantidad de operaciones a realizar para 
+     % la siguiente iteracion.
      contador = contador - 1;
 
-     # Se le agrega el nuevo termino al polinomio de interpolacion.
+     % Se le agrega el nuevo termino al polinomio de interpolacion.
      polinomioInterpolacion = polinomioInterpolacion + multiplicadores(1)*variable;
 
-     # Se actualiza la lista en y.
+     % Se actualiza la lista en y.
      yv = multiplicadores;
      
    endfor
@@ -109,3 +111,4 @@ function polinomioInterpolacion = dd_newton(xv, yv)
    polinomioInterpolacion = expand(polinomioInterpolacion);
    
 end
+

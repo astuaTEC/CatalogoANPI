@@ -17,7 +17,7 @@ endfunction
 
 function [xv, yv, polinomioInterpolacion] = euler(funcion, intervalo, pasosh, yinicial)
   % Simbolico
-  syms x;
+  syms x, y;
   f_simbolica = sym(funcion);
   
   n = pasosh;
