@@ -15,7 +15,7 @@ Salidas:
     polinomio: Respectivo polinomio de interpolacion
     
 """
-def runge_kutta(funcion, intervalo, pasoh, yinicial):
+def runge_kutta_4(funcion, intervalo, pasoh, yinicial):
     x = Symbol('x')
     y  = Symbol('y')
     
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     funcion = "-x*y+4*x/y"
     yinicial = 1
 
-    res = runge_kutta(funcion, intervalo, num_pt, yinicial)
+    res = runge_kutta_4(funcion, intervalo, num_pt, yinicial)
 
     print("Pares ordenados: ", res[0])
     print("Polinomio de interpolacion: ", res[1])
