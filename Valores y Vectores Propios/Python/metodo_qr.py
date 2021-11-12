@@ -1,6 +1,7 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
-def metodo_qr(A, iterMax):
+def metodo_qr(A, iterMax, tol):
 
     Ak = A
 
@@ -8,12 +9,33 @@ def metodo_qr(A, iterMax):
 
     Uk = np.eye(m);
 
+    er = []
+
+    Vp = np.diag(Ak)
+
     for i in range(iterMax):
         Q, R = np.linalg.qr(Ak)
 
         Ak = np.dot(R, Q)
 
         Uk = np.dot(Uk, Q)
+
+        Vp_n = np.diag(Ak)
+
+        error = np.linalg.norm(Vp_n - Vp)
+
+        Vp = Vp_n
+
+        er.append(error)
+
+        if error < tol:
+            break
+
+    fig, graf = plt.subplots()  # se crea la gráfica
+    ejeX = np.arange(0, i+1, 1)  # se crea el eje X (son las iteraciones)
+    graf.plot(ejeX, er)  # se grafican los datos
+    plt.title('Metodo QR')
+    plt.show()  # se muestra la gráfica
 
     return returnValoresVectores(Ak, Uk)
 
@@ -37,7 +59,9 @@ if __name__ == "__main__":
     
     iterMax = 100
 
-    res = metodo_qr(A, iterMax)
+    tol = 10e-6
+
+    res = metodo_qr(A, iterMax, tol)
 
     for i in range(len(res[0])):
         print("Valor propio: ", res[0][i])
