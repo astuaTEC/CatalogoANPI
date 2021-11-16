@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-#Calculo de valores propios y vectores propios de una matriz
+# Calculo de valores propios y vectores propios de una matriz
 # Entradas:
 # A = matriz tamano nxm, iterMax:Cantidad Maxima de iteraciones, tol; toleracion del error
 # Salidas:
