@@ -25,6 +25,16 @@ void plot(vector<double> x, vector<double> y){
     plt::show();
 }
 
+/**
+ * Funcion para aproximar proxima el modulo del valor propio de 
+ * menor magnitud deuna matriz A y el vector propio normalizadoasociado 
+ * a dicho valor propio.
+ * @param A: Matriz de tamanio mxm
+ * @param x0: vector inicial
+ * @param iterMax: iteraciones maximas
+ * @param tol: tolerancia maxima
+ * @return valor propio y vector propio respectivo
+ */
 tuple<double, vec> potencia_inversa(mat A, vec x0, int iterMax, double tol){
 
     vec xk = x0;
@@ -35,8 +45,13 @@ tuple<double, vec> potencia_inversa(mat A, vec x0, int iterMax, double tol){
 
     vector<double> er, iter;
     
+    // se calcula la aproximacion
+    // mediante la formula de la
+    // potencia inversa
     for (int i = 0; i < iterMax; i++)
     {
+        //en lugar de calcular la inversa
+        // se resuelve el sistema de ecuaciones
         yk = solve(A, xk);
 
         ck = norm(yk, "inf");
@@ -56,6 +71,7 @@ tuple<double, vec> potencia_inversa(mat A, vec x0, int iterMax, double tol){
 
     }
 
+    // se grafica
     plot(iter, er);
     return tuple<double, vec>{ck, xk}; 
 }
