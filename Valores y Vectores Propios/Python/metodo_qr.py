@@ -7,7 +7,7 @@ def metodo_qr(A, iterMax, tol):
 
     m = len(A)
 
-    Uk = np.eye(m);
+    Uk = np.eye(m)
 
     er = []
 
