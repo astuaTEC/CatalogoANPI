@@ -1,6 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
+#Calculo de valores propios y vectores propios de una matriz
+# Entradas:
+# A = matriz tamano nxm, iterMax:Cantidad Maxima de iteraciones, tol; toleracion del error
+# Salidas:
+# ValoresPropios y Vactores Propios
 def metodo_qr(A, iterMax, tol):
 
     Ak = A
@@ -14,6 +20,7 @@ def metodo_qr(A, iterMax, tol):
     Vp = np.diag(Ak)
 
     for i in range(iterMax):
+        #Factorización QR
         Q, R = np.linalg.qr(Ak)
 
         Ak = np.dot(R, Q)
@@ -39,7 +46,12 @@ def metodo_qr(A, iterMax, tol):
 
     return returnValoresVectores(Ak, Uk)
 
-
+#Funcion para acomodar los datos de forma estetica en la salida
+#Entradas:
+#     Una Matriz AK: Vector valor propios, Matriz Triangular
+#     Una Matriz UK: Matriz de vectores propios
+#Salida:
+# Valores y vectores prpopios correspondientes
 def returnValoresVectores(Ak, Uk):
     valores = []
     vectores = []
