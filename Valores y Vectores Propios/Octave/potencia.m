@@ -1,6 +1,4 @@
-% Funcion para aproximar proxima el modulo del valor propio de 
-%  menor magnitud deuna matriz A y el vector propio normalizadoasociado 
-% a dicho valor propio.
+
 
 function potencia_aux
   A = [3, -1 ,0; -1, 2, -1; 0, -1, 3];
@@ -13,6 +11,14 @@ function potencia_aux
   
 endfunction
 
+% Funcion para aproximar proxima el modulo del valor propio de 
+% menor magnitud deuna matriz A y el vector propio normalizadoasociado 
+% a dicho valor propio.
+% Entradas:
+% A: Matriz tamano nxm x0: Valor inicial
+% iterMax: Iteraciones Maximas tol:Toleracia maximas del eror
+% Salidas:
+% xk:Vector Propio  ck:Valor Propio
 function [ck xk] = potencia(A, x0, iterMax, tol)
   
   xk = x0;
